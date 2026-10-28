@@ -1,0 +1,49 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(BoundsCheck))] //tells Unity that Enemy class must have a BoundsCheck component
+public class Enemy : MonoBehaviour
+{
+    [Header("Inscribed")]
+    public float speed = 10f; //the movement speed (in m/s)
+    public float fireRate = 0.3f; // Seconds/shot (Unused)
+    public float health = 1; // Damage needed to destroy this enemy
+    public int score = 100; // Points earned for destroying this enemy
+    private BoundsCheck bndCheck; //stores a reference to this object's BoundsCheck component
+
+    //Awake is called when the scene is first loaded in 
+    void Awake() {
+        bndCheck = GetComponent<BoundsCheck>(); //assign this object's BoundsCheck component to bndCheck
+    }
+
+    // This is a Property: A method that acts like a field
+    public Vector3 pos {
+        get {
+            return this.transform.position;
+        }
+        set {
+            this.transform.position = value;
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        //movement method
+        Move();
+        //if enemy has exceeded bottom screen border, destroy it
+        if(!bndCheck.isOnScreen) {
+            if(pos.y < bndCheck.camHeight - bndCheck.radius) {
+                Destroy(gameObject);
+            }
+        }
+    }
+
+    //gets current position of this GameObject, moves it in the downward Y direction, assigs it back to pos
+    public virtual void Move() {
+        Vector3 tempPos = pos;
+        tempPos.y -= speed * Time.deltaTime;
+        pos = tempPos;
+    }
+}

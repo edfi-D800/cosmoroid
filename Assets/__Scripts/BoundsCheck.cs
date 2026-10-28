@@ -9,7 +9,26 @@ using UnityEngine;
 
 public class BoundsCheck : MonoBehaviour
 {
+    //allows control over wether BoundsCheck is centered, inset, or outset through the inspector
+    public enum eType {center, inset, outset};
+
+    [System.Flags]
+    public enum eScreenLocs {
+        onScreen = 0, // 0000 in binary (zero)
+        offRight = 1, // 0001 in binary (zero)
+        offLeft = 2, // 0010 in binary (zero)
+        offUp = 4, // 0100 in binary (zero)
+        offDown = 8, // 1000 in binary (zero)
+    }
+
+    [Header("Inscribed")]
+    public eType boundsType = eType.center;
+    public float radius = 1f;
+
     [Header("Dynamic")]
+    public eScreenLocs screenLocs = eScreenLocs.onScreen;
+    public bool keepOnScreen = true;
+    //width and height for game camera
     public float camWidth;
     public float camHeight;
 
@@ -25,25 +44,44 @@ public class BoundsCheck : MonoBehaviour
     //LateUpdate is called every frame after Update() is called on all GameObjects
     void LateUpdate()
     {
+        //Assign the checkRadius that will enable center, inset, or outset options
+        float checkRadius = 0;
+        if (boundsType == eType.inset) checkRadius = -radius;
+        if (boundsType == eType.outset) checkRadius = radius;
+
         Vector3 pos = transform.position;
+        screenLocs = eScreenLocs.onScreen;
 
         //if camWidth is exceeded, reset to other side
-        if (pos.x > camWidth) {
-            pos.x = -camWidth;
+        if (pos.x > (camWidth + checkRadius)) {
+            pos.x = -camWidth - checkRadius;
+            screenLocs |= eScreenLocs.offRight;
         }
-        if (pos.x < -camWidth) {
-            pos.x = camWidth;
+        if (pos.x < (-camWidth - checkRadius)) {
+            pos.x = camWidth + checkRadius;
+            screenLocs |= eScreenLocs.offLeft;
         }
 
         //if camHeight is exceeded, reset to other side
-        if (pos.y > camHeight) {
-            pos.y = -camHeight;
+        if (pos.y > (camHeight + checkRadius)) {
+            pos.y = -camHeight - checkRadius;
+            screenLocs |= eScreenLocs.offUp;
         }
-        if (pos.y < -camHeight) {
-            pos.y = camHeight;
+        if (pos.y < (-camHeight - checkRadius)) {
+            pos.y = camHeight + checkRadius;
+            screenLocs |= eScreenLocs.offDown;
         }
 
-        transform.position = pos;
+        //only update pos id keepOnScreen and !isOnScreen is true
+        //honestly not sure if i need this in the first place for my purposes
+        if (keepOnScreen && !isOnScreen) {
+            transform.position = pos;
+            screenLocs = eScreenLocs.onScreen;
+        }
     }
 
+    //backwards compatibility for removed isOnScreen field
+    public bool isOnScreen {
+        get {return (screenLocs == eScreenLocs.onScreen);}
+    }
 }
