@@ -18,9 +18,11 @@ public class Hero : MonoBehaviour
     private float vAxis;
 
     //[Header("Dynamic")] [Range(0,4)]
-
     //i want the ship to be one-shottable so i don't want a shield either
     //public float shieldLevel = 1;
+
+    [Tooltip("This field holds a reference to the last triggering GameObject")]
+    private GameObject lastTriggerGo = null;
 
     //Awake is called when the scene is first loaded in 
     void Awake() {
@@ -54,6 +56,32 @@ public class Hero : MonoBehaviour
         //transform.rotation = Quarternion.Euler(vAxis*pitchMult,hAxis*rollMult,0);
     }
 
+    void OnTriggerEnter(Collider other) {
+        Transform rootT = other.gameObject.transform.root;
+        GameObject go = rootT.gameObject;
+        //Debug.Log("Player hit by: " +go.gameObject.name);
+
+        // Make sure it's not the same triggering go as last time
+        if(go == lastTriggerGo) return;
+        //record lasTriggerGo as current go
+        lastTriggerGo = go;
+        Enemy enemy = go.GetComponent<Enemy>();
+
+        //if collider trigger is an enemy, destroy the enemy
+        //in all trigger cases describe what's being collided with
+        if (enemy != null) {
+            Destroy(go);
+            Debug.Log("Player collided with: " +go.gameObject.name);
+        } else {
+            Debug.Log("Player hit with: " +go.gameObject.name);
+        }
+
+        //KILL
+        Destroy(this.gameObject);
+        //inform Main that there's No More Heroes
+        Main.HERO_DIED();
+    }
+
     //FixedUpdate called based on internal simulation time
     void FixedUpdate() {
         //apply physics forces with Vector3
@@ -63,6 +91,4 @@ public class Hero : MonoBehaviour
         //apply newtonian thrust force (speed)
         rb.AddForce(movement * speed);
     }
-
-    //Please delete the unused Start() method
 }

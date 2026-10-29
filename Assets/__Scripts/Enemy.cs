@@ -33,10 +33,8 @@ public class Enemy : MonoBehaviour
         //movement method
         Move();
         //if enemy has exceeded bottom screen border, destroy it
-        if(!bndCheck.isOnScreen) {
-            if(pos.y < bndCheck.camHeight - bndCheck.radius) {
-                Destroy(gameObject);
-            }
+        if (bndCheck.LocIs(BoundsCheck.eScreenLocs.offDown)) {
+            Destroy(gameObject);
         }
     }
 
