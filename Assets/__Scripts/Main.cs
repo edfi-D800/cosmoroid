@@ -28,6 +28,13 @@ public class Main : MonoBehaviour
     //method for spawning enemies
     //will alter later from spawning at the top to using random x and y coordinates 
     public void SpawnEnemy() {
+        //check if there are already 5+ enemies on-screen using Enemy tag
+        if (GameObject.FindGameObjectsWithTag("Enemy").Length >= 5) {
+            //skip spawning but schedule next check/spawn attempt
+            Invoke(nameof(SpawnEnemy), (1f/enemySpawnPerSecond)); 
+            return;
+        }
+
         // Pick a random Enemy prefab to instantiate
         //choose a random # between 1 and 1-prefabEnemies.Length
         int ndx = Random.Range(0, prefabEnemies.Length); 

@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 4457947719305403732}
   - component: {fileID: 6349597993072682305}
   - component: {fileID: 8705946873093001853}
-  - component: {fileID: -4644067775772339971}
   - component: {fileID: 3727851437308691656}
+  - component: {fileID: 4123549235575923473}
   m_Layer: 9
   m_Name: Zaku
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -86,22 +86,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 78
   m_CollisionDetection: 0
---- !u!114 &-4644067775772339971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3807256127988879110}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d6e4d4b1474b4871baf2656389a78bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  speed: 10
-  fireRate: 0.3
-  health: 1
-  score: 100
 --- !u!114 &3727851437308691656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,9 +101,26 @@ MonoBehaviour:
   boundsType: 2
   radius: 2
   screenLocs: 0
-  keepOnScreen: 0
+  keepOnScreen: 1
   camWidth: 0
   camHeight: 0
+--- !u!114 &4123549235575923473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3807256127988879110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0059e7c5b977e4b87a8dd5a50425f9e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Zaku
+  speed: 10
+  fireRate: 0.3
+  health: 1
+  score: 100
+  changeInterval: 10
 --- !u!1 &4501478496003135284
 GameObject:
   m_ObjectHideFlags: 0
