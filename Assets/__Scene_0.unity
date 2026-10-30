@@ -326,6 +326,7 @@ MonoBehaviour:
   - {fileID: 3807256127988879110, guid: 48abab81292f3417e885115e131b0da3, type: 3}
   enemySpawnPerSecond: 0.5
   enemyInsetDefault: 1.5
+  gameRestartDelay: 2
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   speed: 50
+  projectilePrefab: {fileID: 7343088343169353529, guid: d751fe503771f45d3a8247f4b89da0f0, type: 3}
+  projectileSpeed: 40
 --- !u!114 &1068761151
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,6 +12,8 @@ public class Hero : MonoBehaviour
     //planning to implement pseudo-newtonian movement so i don't want roll/pitch here 
     //public float rollMult = -45;
     //public float pitchMult = 30;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 40;
 
     private Rigidbody rb;
     private float hAxis;
@@ -54,9 +56,25 @@ public class Hero : MonoBehaviour
         // Rotate the ship to make it feel more dynamic
         //planning to implement pseudo-newtonian movement so i don't want this part
         //transform.rotation = Quarternion.Euler(vAxis*pitchMult,hAxis*rollMult,0);
+
+        // Allow the ship to fire
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            TempFire();
+        }
+    }
+
+    //temporary? projectile firing method
+    void TempFire() {
+        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+        projGO.transform.position = transform.position;
+        Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
+        rigidB.linearVelocity = Vector3.up * projectileSpeed;
     }
 
     void OnTriggerEnter(Collider other) {
+        //If it's a bullet ignore it
+        if (other.gameObject.layer == 10) return;
+
         Transform rootT = other.gameObject.transform.root;
         GameObject go = rootT.gameObject;
         //Debug.Log("Player hit by: " +go.gameObject.name);

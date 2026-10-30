@@ -44,4 +44,16 @@ public class Enemy : MonoBehaviour
         tempPos.y -= speed * Time.deltaTime;
         pos = tempPos;
     }
+
+    void OnCollisionEnter(Collision coll) {
+        //get the other GameObject in the collision
+        GameObject otherGO = coll.gameObject;
+
+        //if it has a ProjectileHero class attached, destroy both it and this Enemy object
+        if (otherGO.GetComponent<ProjectileHero>() != null) {
+            Destroy(otherGO);
+            Destroy(gameObject);
+        } 
+        //optional else for debugging purposes not implemented
+    }
 }
