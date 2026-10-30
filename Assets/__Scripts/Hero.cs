@@ -65,14 +65,31 @@ public class Hero : MonoBehaviour
 
     //temporary? projectile firing method
     void TempFire() {
+        //get current WASD input
+        float aimX = Input.GetAxisRaw("Horizontal"); //left (-1), right (1)
+        float aimY = Input.GetAxisRaw("Vertical"); //down (-1), up (+1)
+
+        //create direction vector from WASD input
+        Vector3 aimDirection = new Vector3(aimX, aimY, 0f);
+
+        //do not fire if no WASD keys are pressed
+        //maybe implement dry clicking sound?
+        if (aimDirection == Vector3.zero) {
+            return;
+        } else {
+            //aimDirection.Normalize();
+        }
+
+        //instantiate and fire projectile
         GameObject projGO = Instantiate<GameObject>(projectilePrefab);
         projGO.transform.position = transform.position;
+        projGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, aimDirection);
         Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
-        rigidB.linearVelocity = Vector3.up * projectileSpeed;
+        rigidB.linearVelocity = aimDirection * projectileSpeed;
     }
 
     void OnTriggerEnter(Collider other) {
-        //If it's a bullet ignore it
+        //If it's a hero bullet ignore it
         if (other.gameObject.layer == 10) return;
 
         Transform rootT = other.gameObject.transform.root;

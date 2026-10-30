@@ -12,6 +12,7 @@ public class Zaku : Enemy
     private Vector3 direction;
     private float timeUntilNextChange;
 
+    //Awake is called when the scene is first loaded in
     void Start() {
         //pick a random direction
         GetNewRandomDirection();
@@ -34,7 +35,7 @@ public class Zaku : Enemy
 
         //base.Move();
 
-        // print(bndCheck.isOnScreen); // Leave this line commented out
+        //print(bndCheck.isOnScreen); // Leave this line commented out
     }
 
     void GetNewRandomDirection()

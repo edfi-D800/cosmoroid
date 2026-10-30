@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public float fireRate = 0.3f; // Seconds/shot (Unused)
     public float health = 1; // Damage needed to destroy this enemy
     public int score = 100; // Points earned for destroying this enemy
-    private BoundsCheck bndCheck; //stores a reference to this object's BoundsCheck component
+    protected BoundsCheck bndCheck; //stores a reference to this object's BoundsCheck component
 
     //Awake is called when the scene is first loaded in 
     void Awake() {
