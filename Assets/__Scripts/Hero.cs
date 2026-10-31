@@ -13,7 +13,7 @@ public class Hero : MonoBehaviour
     //public float rollMult = -45;
     //public float pitchMult = 30;
     public GameObject projectilePrefab;
-    public float projectileSpeed = 40;
+    public float projectileSpeed = 70;
 
     private Rigidbody rb;
     private float hAxis;
@@ -76,9 +76,7 @@ public class Hero : MonoBehaviour
         //maybe implement dry clicking sound?
         if (aimDirection == Vector3.zero) {
             return;
-        } else {
-            //aimDirection.Normalize();
-        }
+        } 
 
         //instantiate and fire projectile
         GameObject projGO = Instantiate<GameObject>(projectilePrefab);

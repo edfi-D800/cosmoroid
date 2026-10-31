@@ -49,8 +49,15 @@ public class Enemy : MonoBehaviour
         //get the other GameObject in the collision
         GameObject otherGO = coll.gameObject;
 
-        //if it has a ProjectileHero class attached, destroy both it and this Enemy object
-        if (otherGO.GetComponent<ProjectileHero>() != null) {
+        //check if this is enemy's own bullet, ignore if so
+        if (coll.gameObject.TryGetComponent<ProjectileEnemy>(out ProjectileEnemy proj)) {
+            if (proj.Owner == this.gameObject) {
+                return;
+            }
+        }
+
+        //if it has one of two projectile classes attached, destroy both it and this Enemy object
+        if ((otherGO.GetComponent<ProjectileHero>() != null) || (otherGO.GetComponent<ProjectileEnemy>() != null)) {
             Destroy(otherGO);
             Destroy(gameObject);
         } 

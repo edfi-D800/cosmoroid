@@ -6,22 +6,35 @@ using UnityEngine;
 public class Zaku : Enemy
 {
     [Header("Zaku Inscribed Fields")]
+
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 40;
+
     [Tooltip("Time in seconds between angle changes")]
     public float changeInterval = 5f;
     
     private Vector3 direction;
     private float timeUntilNextChange;
+    private bool hasFiredThisCycle = false;
+    private Collider zakuCollider;
 
     //Awake is called when the scene is first loaded in
     void Start() {
         //pick a random direction
         GetNewRandomDirection();
+        zakuCollider = GetComponent<Collider>();
     }
 
     // Override the move function on Enemy
     public override void Move() {
         //reduce timer 
         timeUntilNextChange -=  Time.deltaTime;
+
+        //if timer is below half of interval and this enemy hasn't fired yet, fire
+        if((!hasFiredThisCycle) && (timeUntilNextChange <= (changeInterval/2f))) {
+            randomFire();
+            hasFiredThisCycle = true; //prevents fire until next direction change
+        }
 
         //if timer hits zero, pick new direction and reset time
         if (timeUntilNextChange <= 0f) {
@@ -48,5 +61,33 @@ public class Zaku : Enemy
 
         //reset countdown timer
         timeUntilNextChange = changeInterval;
+
+        //reset firing flag
+        hasFiredThisCycle = false;
+    }
+
+    //fire in random direction
+    void randomFire() {
+        //generate random angle in radians
+        float randomAngle = Random.Range(0f, 360f) * Mathf.Deg2Rad;
+
+        //create direction vector from angle
+        float aimX = Mathf.Cos(randomAngle);
+        float aimY =Mathf.Sin(randomAngle);
+        Vector3 aimDirection = new Vector3(aimX, aimY, 0f);
+
+        //instantiate projectile
+        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+
+        //have zaku inject itself as projectile owner
+        if (projGO.TryGetComponent<ProjectileEnemy>(out ProjectileEnemy proj)) {
+            proj.Initialize(this.gameObject);
+        }
+
+        //set projectile movement
+        projGO.transform.position = transform.position;
+        projGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, aimDirection);
+        Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
+        rigidB.linearVelocity = aimDirection * projectileSpeed;
     }
 }
