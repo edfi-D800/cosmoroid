@@ -323,10 +323,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main
   prefabEnemies:
+  - {fileID: 3807256127988879110, guid: 48abab81292f3417e885115e131b0da3, type: 3}
+  - {fileID: 584108093138067889, guid: 818441c67c22f4be0b31e35c33730e5b, type: 3}
   - {fileID: 2222933663659270994, guid: ca20bfe61f1c9441682436a22e448e05, type: 3}
   enemySpawnPerSecond: 0.5
   enemyInsetDefault: 1.5
   gameRestartDelay: 2
+  timeToUnlockNextEnemy: 150
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,21 +12,24 @@ public class Main : MonoBehaviour
     public float enemySpawnPerSecond = 0.5f; // # Enemies spawned/second
     public float enemyInsetDefault = 1.5f; // Inset from the sides
     public float gameRestartDelay = 2; //time delay before game is restarted
+    public float timeToUnlockNextEnemy = 150f; //time in seconds between enemy type unlocks
 
     private BoundsCheck bndCheck;
+    private float gameStartTime;
 
     //Awake is called when the scene is first loaded in
     void Awake() {
         S = this; 
         // Set bndCheck to reference the BoundsCheck component on this GameObject
         bndCheck = GetComponent<BoundsCheck>();
+        //get gameStartTime 
+        gameStartTime = Time.time;
         // Invoke SpawnEnemy() once (in 2 seconds, based on default values)
         //nameof uses spellchecking to ensure reliability
         Invoke(nameof(SpawnEnemy), (1f/enemySpawnPerSecond));
     }
 
-    //method for spawning enemies
-    //will alter later from spawning at the top to using random x and y coordinates 
+    //method for spawning enemies 
     public void SpawnEnemy() {
         //check if there are already 5+ enemies on-screen using Enemy tag
         if (GameObject.FindGameObjectsWithTag("Enemy").Length >= 5) {
@@ -34,10 +37,14 @@ public class Main : MonoBehaviour
             Invoke(nameof(SpawnEnemy), (1f/enemySpawnPerSecond)); 
             return;
         }
-
-        // Pick a random Enemy prefab to instantiate
-        //choose a random # between 1 and 1-prefabEnemies.Length
-        int ndx = Random.Range(0, prefabEnemies.Length); 
+        //calculate time since game start
+        float timeElapsed = Time.time - gameStartTime;
+        //determine how many enemy types are unlocked
+        int unlockedTiers = Mathf.FloorToInt(timeElapsed/timeToUnlockNextEnemy) + 1;
+        //clamp value so it doesn't exceed full number of prefabs in prefabEnemies
+        int currentPoolSize = Mathf.Clamp(unlockedTiers, 1, prefabEnemies.Length);
+        //choose a random # inside current pool
+        int ndx = Random.Range(0, currentPoolSize); 
         //ndx is used to randomly pick a GameObject prefab from prefabEnemies
         GameObject go = Instantiate<GameObject>(prefabEnemies[ndx]); 
 
