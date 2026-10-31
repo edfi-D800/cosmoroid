@@ -323,7 +323,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Main
   prefabEnemies:
-  - {fileID: 3807256127988879110, guid: 48abab81292f3417e885115e131b0da3, type: 3}
+  - {fileID: 584108093138067889, guid: 818441c67c22f4be0b31e35c33730e5b, type: 3}
   enemySpawnPerSecond: 0.5
   enemyInsetDefault: 1.5
   gameRestartDelay: 2
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 1068761151}
   m_Layer: 8
   m_Name: _Hero
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

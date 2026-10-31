@@ -101,7 +101,7 @@ MonoBehaviour:
   boundsType: 2
   radius: 2
   screenLocs: 0
-  keepOnScreen: 0
+  keepOnScreen: 1
   camWidth: 0
   camHeight: 0
 --- !u!114 &7645221542756783257
@@ -116,6 +116,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fceae1857ab4a1ba4d3eeccb6d549f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RedZaku
+  speed: 15
+  fireRate: 0.3
+  health: 1
+  score: 100
+  projectilePrefab: {fileID: 1316178533791317382, guid: 87ad1d29f19d3427d8a2382f124e13d9, type: 3}
+  projectileSpeed: 40
+  changeInterval: 5
 --- !u!1 &5899882777595857932
 GameObject:
   m_ObjectHideFlags: 0
