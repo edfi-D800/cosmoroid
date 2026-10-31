@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
         pos = tempPos;
     }
 
-    void OnCollisionEnter(Collision coll) {
+    public virtual void OnCollisionEnter(Collision coll) {
         //get the other GameObject in the collision
         GameObject otherGO = coll.gameObject;
 

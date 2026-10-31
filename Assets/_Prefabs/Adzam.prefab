@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4042423789492147942}
   - component: {fileID: 1312466232940521128}
   - component: {fileID: 4496929288924897233}
-  - component: {fileID: 7670124328435368624}
+  - component: {fileID: -8411895152233443840}
   m_Layer: 9
   m_Name: Adzam
   m_TagString: Enemy
@@ -55,8 +55,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1312466232940521128
@@ -104,7 +104,7 @@ MonoBehaviour:
   keepOnScreen: 1
   camWidth: 0
   camHeight: 0
---- !u!114 &7670124328435368624
+--- !u!114 &-8411895152233443840
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -113,16 +113,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 2222933663659270994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fceae1857ab4a1ba4d3eeccb6d549f, type: 3}
+  m_Script: {fileID: 11500000, guid: 3f232ca8cb82a4a5694373bb5c250f6c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RedZaku
+  m_EditorClassIdentifier: Assembly-CSharp::Adzam
   speed: 5
   fireRate: 0.3
   health: 10
-  score: 100
+  score: 1000
   projectilePrefab: {fileID: 1316178533791317382, guid: 87ad1d29f19d3427d8a2382f124e13d9, type: 3}
   projectileSpeed: 40
-  changeInterval: 20
+  changeInterval: 15
 --- !u!1 &3964966673379057800
 GameObject:
   m_ObjectHideFlags: 0

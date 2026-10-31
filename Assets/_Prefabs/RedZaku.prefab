@@ -119,7 +119,7 @@ MonoBehaviour:
   speed: 15
   fireRate: 0.3
   health: 1
-  score: 100
+  score: 300
   projectilePrefab: {fileID: 1316178533791317382, guid: 87ad1d29f19d3427d8a2382f124e13d9, type: 3}
   projectileSpeed: 40
   changeInterval: 5
