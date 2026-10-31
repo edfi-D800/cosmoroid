@@ -18,6 +18,10 @@ public class Adzam : Enemy
     private bool hasFiredThisCycle = false;
     private Collider adzamCollider;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shootClip;
+
     //Awake is called when the scene is first loaded in
     void Start() {
         //pick a random direction
@@ -107,6 +111,7 @@ public class Adzam : Enemy
         projGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, aimDirection);
         Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
         rigidB.linearVelocity = aimDirection * projectileSpeed;
+        PlayShootSound();
     }
 
     //override enemy OnCollisionEnter() so that adzam is invulnerable to player attacks
@@ -138,5 +143,12 @@ public class Adzam : Enemy
             Debug.Log(this.gameObject.name + "has been splashed!");
         }
         //optional else for debugging purposes not implemented
+    }
+
+    //sfx method for shooting
+    public void PlayShootSound() {
+        if ((audioSource != null) && (shootClip != null)) {
+            audioSource.PlayOneShot(shootClip);
+        }
     }
 }

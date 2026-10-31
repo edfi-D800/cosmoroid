@@ -17,6 +17,10 @@ public class Main : MonoBehaviour
     private BoundsCheck bndCheck;
     private float gameStartTime;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip explodeClip; //this will handle player explosion sounds
+
     //Awake is called when the scene is first loaded in
     void Awake() {
         S = this; 
@@ -71,6 +75,7 @@ public class Main : MonoBehaviour
 
     //invokes the Restart() method in gameRestartDelay seconds
     void DelayedRestart() {
+        PlayExplosionSound();
         Invoke(nameof(Restart), gameRestartDelay);
     }
 
@@ -83,5 +88,12 @@ public class Main : MonoBehaviour
     //calls DelayedRestart when player dies
     static public void HERO_DIED() {
         S.DelayedRestart();
+    }
+
+    //sfx method for explosion
+    public void PlayExplosionSound() {
+        if ((audioSource != null) && (explodeClip != null)) {
+            audioSource.PlayOneShot(explodeClip);
+        }
     }
 }

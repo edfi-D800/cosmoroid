@@ -18,6 +18,10 @@ public class Zaku : Enemy
     private bool hasFiredThisCycle = false;
     private Collider zakuCollider;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shootClip;
+
     //Awake is called when the scene is first loaded in
     void Start() {
         //pick a random direction
@@ -89,5 +93,13 @@ public class Zaku : Enemy
         projGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, aimDirection);
         Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
         rigidB.linearVelocity = aimDirection * projectileSpeed;
+        PlayShootSound();
+    }
+
+    //sfx method for shooting
+    public void PlayShootSound() {
+        if ((audioSource != null) && (shootClip != null)) {
+            audioSource.PlayOneShot(shootClip);
+        }
     }
 }

@@ -19,6 +19,10 @@ public class Hero : MonoBehaviour
     private float hAxis;
     private float vAxis;
 
+    [Header("Audio Settings")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip shootClip;
+
     //[Header("Dynamic")] [Range(0,4)]
     //i want the ship to be one-shottable so i don't want a shield either
     //public float shieldLevel = 1;
@@ -44,18 +48,6 @@ public class Hero : MonoBehaviour
         // Pull in information from the Input class
         hAxis = Input.GetAxis("Horizontal");
         vAxis = Input.GetAxis("Vertical");
-
-        // Change transform.position based on the axes
-        //opting for FixedUpdate for simulation-based movement
-        //will still use Update for Input
-        //Vector3 pos = transform.position;
-        //pos.x += hAxis * speed * Time.deltaTime;
-        //pos.y += vAxis * speed * Time.deltaTime;
-        //transform.position = pos;
-
-        // Rotate the ship to make it feel more dynamic
-        //planning to implement pseudo-newtonian movement so i don't want this part
-        //transform.rotation = Quarternion.Euler(vAxis*pitchMult,hAxis*rollMult,0);
 
         // Allow the ship to fire
         if (Input.GetKeyDown(KeyCode.Space)) {
@@ -84,6 +76,7 @@ public class Hero : MonoBehaviour
         projGO.transform.rotation = Quaternion.LookRotation(Vector3.forward, aimDirection);
         Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
         rigidB.linearVelocity = aimDirection * projectileSpeed;
+        PlayShootSound();
     }
 
     void OnTriggerEnter(Collider other) {
@@ -123,5 +116,12 @@ public class Hero : MonoBehaviour
         if (movement.magnitude > 1f) movement.Normalize();
         //apply newtonian thrust force (speed)
         rb.AddForce(movement * speed);
+    }
+
+    //sfx method for shooting
+    public void PlayShootSound() {
+        if ((audioSource != null) && (shootClip != null)) {
+            audioSource.PlayOneShot(shootClip);
+        }
     }
 }
