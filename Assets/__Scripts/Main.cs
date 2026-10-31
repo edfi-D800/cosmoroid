@@ -16,6 +16,7 @@ public class Main : MonoBehaviour
 
     private BoundsCheck bndCheck;
     private float gameStartTime;
+    public ScoreCounter scoreCounter;
 
     [Header("Audio Settings")]
     [SerializeField] private AudioSource audioSource;
@@ -82,7 +83,10 @@ public class Main : MonoBehaviour
     //reloads __Scene_0 to restart the game 
     //will probably retool into game over screen trigger 
     void Restart() {
-        SceneManager.LoadScene("__Scene_0");
+        GameObject scoreGO = GameObject.Find("ScoreCounter");
+        scoreCounter = scoreGO.GetComponent<ScoreCounter>();
+        PlayerPrefs.SetInt("PlayerScore", scoreCounter.score);
+        SceneManager.LoadScene("GameOver");
     }
 
     //calls DelayedRestart when player dies

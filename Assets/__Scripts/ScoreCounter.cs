@@ -7,7 +7,7 @@ public class ScoreCounter : MonoBehaviour
 {
     public static ScoreCounter Instance {get; private set;}
     
-    private int score = 0; 
+    public int score = 0; 
     private Text uiText; //reference to text component of this object
 
     [Header("Audio Settings")]
@@ -27,6 +27,7 @@ public class ScoreCounter : MonoBehaviour
     }
 
     //method for adding points to score
+    //written for when score was originally private, keeping it for readibility and also i'm laaazy
     public void AddScore(int points) {
         score += points;
         PlayExplosionSound();
