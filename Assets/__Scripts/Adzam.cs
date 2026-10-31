@@ -133,6 +133,7 @@ public class Adzam : Enemy
         } 
         //if health has reached below 0, KILL
         if (health <= 0) {
+            ScoreCounter.Instance.AddScore(score);
             Destroy(gameObject);
             Debug.Log(this.gameObject.name + "has been splashed!");
         }

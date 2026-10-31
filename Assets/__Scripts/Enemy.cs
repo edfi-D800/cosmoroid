@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     public int score = 100; // Points earned for destroying this enemy
     protected BoundsCheck bndCheck; //stores a reference to this object's BoundsCheck component
 
+    public ScoreCounter scoreCounter; //stores reference to script in ScoreCounter object
+
     //Awake is called when the scene is first loaded in 
     void Awake() {
         bndCheck = GetComponent<BoundsCheck>(); //assign this object's BoundsCheck component to bndCheck
@@ -58,6 +60,7 @@ public class Enemy : MonoBehaviour
 
         //if it has one of two projectile classes attached, destroy both it and this Enemy object
         if ((otherGO.GetComponent<ProjectileHero>() != null) || (otherGO.GetComponent<ProjectileEnemy>() != null)) {
+            ScoreCounter.Instance.AddScore(score);
             Destroy(otherGO);
             Destroy(gameObject);
         } 
