@@ -36,7 +36,9 @@ public class Titlescreen_Skybox : MonoBehaviour
     }
 
     void DelayedFart() {
+        //play cool sound
         PlayExplosionSound();
+        //ATTEMPT to invert ui image color, of course it doesn't work fully... 
         if (uiImage != null) {
             Color currentColor = uiImage.color;
             uiImage.color = new Color(1f - currentColor.r, 1f - currentColor.g, 1f - currentColor.b, currentColor.a);
